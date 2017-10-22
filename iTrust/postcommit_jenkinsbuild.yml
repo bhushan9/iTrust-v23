@@ -1,8 +1,9 @@
 - hosts: localhost
+  become: yes
   tasks: 
 
   - name: password
-    shell: cat /var/lib/jenkins/initialAdminPassword
+    shell: cat /var/lib/jenkins/secrets/initialAdminPassword
     register: password
 
   - name: Get Jenkins crumb

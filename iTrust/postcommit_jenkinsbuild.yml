@@ -9,7 +9,7 @@
   - name: Get Jenkins crumb
     uri:
       user: admin
-      password: "{{Password.stdout}}"
+      password: "{{password.stdout}}"
       force_basic_auth: yes
       url: "http://127.0.0.1:8080/crumbIssuer/api/json"
       return_content: yes
@@ -25,7 +25,7 @@
   - name: Run build job
     uri:
       user: admin
-      password: "{{Password.stdout}}"
+      password: "{{password.stdout}}"
       force_basic_auth: yes
       url: "http://127.0.0.1:8080/job/checkbox_build/buildc"
       method: POST

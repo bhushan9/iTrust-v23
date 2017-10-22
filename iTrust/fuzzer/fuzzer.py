@@ -38,66 +38,66 @@ def fuzzing():
 			if(re.match('(.*)if(.*)',line) is not None or re.match('(.*)while(.*)',line) is not None):
 				#print (line,": ---------------------------------------------------inside if if")
 				if(re.match('(.*)<(.*)',line) is not None):
-					print"---------------------------------------START----------------------------"
-					print line,"\n"
-					if(lt > 0):
+					#print"---------------------------------------START----------------------------"
+					#print line,"\n"
+					if(lt > 500):
 						line = re.sub('<','>',line)
-					print "---------------------------------------END------------------------------"
-					print line,"\n"
+					#print "---------------------------------------END------------------------------"
+					#print line,"\n"
 			if(re.match('(.*)if(.*)',line) is not None or re.match('(.*)while(.*)',line) is not None):
 	                        #print (line,": ---------------------------------------------------inside if if")
-	                        if(re.match('(.*)>(.*)',line) is not None):
-	                                #print"---------------------------------------START----------------------------"
-	                                #print line,"\n"
-	                                if(gt < 500):
-	                                        line = re.sub('>','<',line)
-	                                #print "---------------------------------------END------------------------------"
-	                                #print line,"\n"                        
+				if(re.match('(.*)>(.*)',line) is not None):
+					#print"---------------------------------------START----------------------------"
+					#print line,"\n"
+					if(gt < 500):
+						line = re.sub('>','<',line)
+					#print "---------------------------------------END------------------------------
+					#print line,"\n"                        
 			
 			if(re.match('(.*)if(.*)',line) is not None or re.match('(.*)while(.*)',line) is not None):
-	                        #print (line,": ---------------------------------------------------inside if if")
-	                        if(re.match('(.*)==(.*)',line) is not None):
-	                                #print"---------------------------------------START----------------------------"
-	                                #print line,"\n"
-	                                if(eq < 500):
-	                                        line = re.sub('==','!=',line)
-	                                #print "---------------------------------------END------------------------------"
-	                                #print line,"\n"
+				#print (line,": ---------------------------------------------------inside if if")
+				if(re.match('(.*)==(.*)',line) is not None):
+					#print"---------------------------------------START----------------------------"
+					#print line,"\n
+					if(eq < 500):
+						line = re.sub('==','!=',line)
+					#print "---------------------------------------END------------------------------"
+					#print line,"\n"
 	
 			if(re.match('(.*)if(.*)',line) is not None or re.match('(.*)while(.*)',line) is not None):
-	                        #print (line,": ---------------------------------------------------inside if if")
-	                        if(re.match('(.*)!=(.*)',line) is not None):
-	                                #print"---------------------------------------START----------------------------"
-	                                #print line,"\n"
-	                                if(neq > 500):
-	                                        line = re.sub('!=','==',line)
-	                                #print "---------------------------------------END------------------------------"
-	                                #print line,"\n"
+				#print (line,": ---------------------------------------------------inside if if")
+				if(re.match('(.*)!=(.*)',line) is not None):
+					#print"---------------------------------------START----------------------------"
+					#print line,"\n"
+					if(neq > 500):
+						line = re.sub('!=','==',line)
+					#print "---------------------------------------END------------------------------"
+					#print line,"\n"
 	
-	                if(re.match('(.*)0(.*)',line) is not None):
-	                        #print"---------------------------------------START----------------------------"
-	                        #print line,"\n"
-	                        if(zero < 500):
-	                                line = re.sub('0','1',line)
-	                        #print "---------------------------------------END------------------------------"
-	                        #print line,"\n"
+			if(re.match('(.*)0(.*)',line) is not None):
+				#print"---------------------------------------START----------------------------"
+				#print line,"\n"
+				if(zero < 500):
+					line = re.sub('0','1',line)
+				#print "---------------------------------------END------------------------------"
+				#print line,"\n"
 	
-	                if(re.match('(.*)1(.*)',line) is not None):
-	                        #print"---------------------------------------START----------------------------"
-	                        #print line,"\n"
-	                        if(one > 500):
-	                                line = re.sub('1','0',line)
-	                        #print "---------------------------------------END------------------------------"
-	                        #print line,"\n"                      
+			if(re.match('(.*)1(.*)',line) is not None):
+				#print"---------------------------------------START----------------------------"
+				#print line,"\n"
+				if(one > 500):
+					line = re.sub('1','0',line)
+				#print "---------------------------------------END------------------------------"
+				#print line,"\n"                      
 	                        
 			if(re.match('.*\"(.*)\".*',line) is not None):
-	                        #print"---------------------------------------START----------------------------"
-	                        #print line,"\n"
-	                        if(chgStr > 500):
+				#print"---------------------------------------START----------------------------"
+				#print line,"\n"
+				if(chgStr > 500):
 					match = re.search(".*(\".*\").*",line)
 					line = line.replace(match.group(1),"\"shit\"")
-	                        #print "---------------------------------------END------------------------------"
-	                        #print line,"\n"                      
+				#print "---------------------------------------END------------------------------"
+				#print line,"\n"                      
 	
 		fout = open(file_name,'w')
 		for l in lines:

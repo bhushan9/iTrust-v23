@@ -4,8 +4,12 @@ import re
 import random
 import requests
 import time
+import subprocess
+
+
 #from git import Repo
 
+sha1 = ""
 def fuzzing():
 	print "kiran krishnan"
 	files = []
@@ -34,12 +38,12 @@ def fuzzing():
 			if(re.match('(.*)if(.*)',line) is not None or re.match('(.*)while(.*)',line) is not None):
 				#print (line,": ---------------------------------------------------inside if if")
 				if(re.match('(.*)<(.*)',line) is not None):
-					#print"---------------------------------------START----------------------------"
-				        #print line,"\n"
-					if(lt > 500):
+					print"---------------------------------------START----------------------------"
+					print line,"\n"
+					if(lt > 0):
 						line = re.sub('<','>',line)
-					#print "---------------------------------------END------------------------------"
-					#print line,"\n"
+					print "---------------------------------------END------------------------------"
+					print line,"\n"
 			if(re.match('(.*)if(.*)',line) is not None or re.match('(.*)while(.*)',line) is not None):
 	                        #print (line,": ---------------------------------------------------inside if if")
 	                        if(re.match('(.*)>(.*)',line) is not None):
@@ -102,8 +106,8 @@ def fuzzing():
 		
 def gitcommit(i):
 	#os.system('git add . && git commit -m "fuzzed %d"' %i)
-	os.system('git stash && git checkout fuzzer && git checkout stash -- . && git commit -m "fuzzed %d" && git push' %i)
-	os.system('git stash drop')
+	os.system('git branch fuzzer && git checkout fuzzer && git add . && git commit -m "fuzzed %d"' %i)
+	sha1 = os.popen('git rev-parse HEAD').read()
 
 def revertcommit(i,sha):
 	while True:
@@ -118,7 +122,6 @@ def revertcommit(i,sha):
 
 
 def main():
-	sha1 = "65f6bbd62f71e94b86803e4ad9b6deb9e33bab0d"
 	for i in range(1):
 		fuzzing()
 		gitcommit(i)

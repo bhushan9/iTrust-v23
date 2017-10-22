@@ -106,23 +106,27 @@ def fuzzing():
 		
 def gitcommit(i):
 	#os.system('git add . && git commit -m "fuzzed %d"' %i)
-	os.system('git branch fuzzer && git checkout fuzzer && git add . && git commit -m "fuzzed %d"' %i)
+	os.system('git add . && git commit -m "fuzzed %d"' %i)
 	sha1 = os.popen('git rev-parse HEAD').read()
+	print sha1
 
 def revertcommit(i,sha):
 	while True:
 		response = requests.get('http://159.203.180.176:8080/job/itrust%20test/5/api/json',
 								auth=('admin', 'ece6144f110d430586988c71da1f3ae1'))
-		data = response.json()
-		if data['building'] != False:
-			time.sleep(5)
-			continue
-		os.system('git checkout %s' %sha)
-		break
-
+		try: 
+			data = response.json()
+			if data['building'] != False:
+				time.sleep(5)
+				continue
+			os.system('git checkout %s' %sha)
+			break
+		except ValueError:
+			print data
 
 def main():
 	for i in range(1):
+		os.system('git branch fuzzer && git checkout fuzzer')
 		fuzzing()
 		gitcommit(i)
 		revertcommit(i,sha1)

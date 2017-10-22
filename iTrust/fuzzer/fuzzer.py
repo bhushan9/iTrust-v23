@@ -13,7 +13,9 @@ sha1 = ""
 def fuzzing():
 	print "kiran krishnan"
 	files = []
-	for root, dirnames, filenames in os.walk('C:\\Users\\kbala\\boxes\\m2\\iTrust-v23'):
+        dir_name = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+        print dir_name 
+	for root, dirnames, filenames in os.walk(dir_name):
 		for filename in fnmatch.filter(filenames, '*.js'):
 			files.append(os.path.join(root, filename))
 	for file_name in files:

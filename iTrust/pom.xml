@@ -151,6 +151,12 @@
                     <exclude>**/selenium/**/*.java</exclude>
                 	<exclude>**/cucumber/**/*.java</exclude>
                 </excludes>
+		         <parallel>all</parallel>
+         	<useSystemClassLoader>false</useSystemClassLoader>
+         	<perCoreThreadCount>false</perCoreThreadCount>
+         	<forkCount>2.0C</forkCount>
+         	<reuseForks>true</reuseForks>
+         	<threadCount>20</threadCount>
             </configuration>
       </plugin>
       <plugin>

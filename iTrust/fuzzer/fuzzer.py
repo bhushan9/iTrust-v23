@@ -114,7 +114,7 @@ def gitcommit(i):
 
 def revertcommit(i,sha):
 	while True:
-		response = requests.get('http://159.203.180.176:8080/job/itrust%20test/5/api/json',
+		response = requests.get('http://159.203.180.176:8080/job/itrust_test2/4/api/json',
 								auth=('admin', 'ece6144f110d430586988c71da1f3ae1'))
 		data = response.json()
 		try: 

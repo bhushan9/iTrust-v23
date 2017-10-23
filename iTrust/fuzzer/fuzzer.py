@@ -35,8 +35,10 @@ def fuzzing():
 		zero = random.randint(1,1001)
 		chgStr = random.randint(1,1001)
 		#print lt
+		lines1 = lines
+		lines2 = []
 		for line in lines:
-			
+				
 			#print(line,': ----------------------------------------------------------inside for')
 			if(re.match('(.*)if(.*)',line) is not None or re.match('(.*)while(.*)',line) is not None):
 				#print (line,": ---------------------------------------------------inside if if")
@@ -47,7 +49,7 @@ def fuzzing():
 						line = re.sub('<','>',line)
 					#print "---------------------------------------END------------------------------"
 					#print line,"\n"
-					print "< fuzzed"
+					#print "< fuzzed"
 
 			if(re.match('(.*)if(.*)',line) is not None or re.match('(.*)while(.*)',line) is not None):
 	                        #print (line,": ---------------------------------------------------inside if if")
@@ -58,7 +60,7 @@ def fuzzing():
 						line = re.sub('>','<',line)
 					#print "---------------------------------------END------------------------------
 					#print line,"\n"                        
-					print "> fuzzed"
+					#print "> fuzzed"
 
 			if(re.match('(.*)if(.*)',line) is not None or re.match('(.*)while(.*)',line) is not None):
 				#print (line,": ---------------------------------------------------inside if if")
@@ -69,7 +71,7 @@ def fuzzing():
 						line = re.sub('==','!=',line)
 					#print "---------------------------------------END------------------------------"
 					#print line,"\n"
-					print "= fuzzed"
+					#print "= fuzzed"
 
 			if(re.match('(.*)if(.*)',line) is not None or re.match('(.*)while(.*)',line) is not None):
 				#print (line,": ---------------------------------------------------inside if if")
@@ -80,7 +82,7 @@ def fuzzing():
 						line = re.sub('!=','==',line)
 					#print "---------------------------------------END------------------------------"
 					#print line,"\n"
-					print "!= fuzzed"
+					#print "!= fuzzed"
 
 			if(re.match('(.*)0(.*)',line) is not None):
 				#print"---------------------------------------START----------------------------"
@@ -89,7 +91,7 @@ def fuzzing():
 					line = re.sub('0','1',line)
 				#print "---------------------------------------END------------------------------"
 				#print line,"\n"
-				print "0 fuzzed"
+				#print "0 fuzzed"
 	
 			if(re.match('(.*)1(.*)',line) is not None):
 				#print"---------------------------------------START----------------------------"
@@ -98,7 +100,7 @@ def fuzzing():
 					line = re.sub('1','0',line)
 				#print "---------------------------------------END------------------------------"
 				#print line,"\n"                      
-				print "1 fuzzed"
+				#print "1 fuzzed"
  	                        
 			if(re.match('.*\"(.*)\".*',line) is not None):
 				#print"---------------------------------------START----------------------------"
@@ -108,11 +110,16 @@ def fuzzing():
 					line = line.replace(match.group(1),"\"shit\"")
 				#print "---------------------------------------END------------------------------"
 				#print line,"\n"                      
-				print "string fuzzed"
+				#print "string fuzzed"
 
-	
+			lines2.append(line)
+
+		if set(lines2) == set(lines):
+			print "false"
+		else:
+			print "true"
 		fout = open(file_name,'w')
-		for l in lines:
+		for l in lines2:
 			fout.write(l)
 		#print(file_name)
 		

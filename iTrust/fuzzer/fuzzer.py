@@ -125,7 +125,7 @@ def fuzzing():
 		
 def gitcommit(i):
 	#os.system('git add . && git commit -m "fuzzed %d"' %i)
-	os.system('git add . && git commit -m "fuzzed %d"' %i)
+	os.system('git add --all . && git commit -am "fuzzed %d"' %i)
 	sha1 = os.popen('git rev-parse HEAD').read()
 	print sha1
 
@@ -148,7 +148,7 @@ def main():
 	for i in range(1):
 		os.system('git branch fuzzer && git checkout fuzzer')
 		fuzzing()
-		#gitcommit(i)
+		gitcommit(i)
 		#revertcommit(i,sha1)
 
 

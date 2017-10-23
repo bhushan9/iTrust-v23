@@ -17,6 +17,7 @@ def fuzzing():
         print dir_name 
 	for root, dirnames, filenames in os.walk(dir_name):
 		for filename in fnmatch.filter(filenames, '*.js'):
+			print filename
 			files.append(os.path.join(root, filename))
 	for file_name in files:
 		#print i,"\n"
@@ -42,64 +43,73 @@ def fuzzing():
 				if(re.match('(.*)<(.*)',line) is not None):
 					#print"---------------------------------------START----------------------------"
 					#print line,"\n"
-					if(lt > 0):
+					if(lt < 125):
 						line = re.sub('<','>',line)
 					#print "---------------------------------------END------------------------------"
 					#print line,"\n"
+					print "< fuzzed"
+
 			if(re.match('(.*)if(.*)',line) is not None or re.match('(.*)while(.*)',line) is not None):
 	                        #print (line,": ---------------------------------------------------inside if if")
 				if(re.match('(.*)>(.*)',line) is not None):
 					#print"---------------------------------------START----------------------------"
 					#print line,"\n"
-					if(gt < 500):
+					if(lt >= 125 && lt < 250):
 						line = re.sub('>','<',line)
 					#print "---------------------------------------END------------------------------
 					#print line,"\n"                        
-			
+					print "> fuzzed"
+
 			if(re.match('(.*)if(.*)',line) is not None or re.match('(.*)while(.*)',line) is not None):
 				#print (line,": ---------------------------------------------------inside if if")
 				if(re.match('(.*)==(.*)',line) is not None):
 					#print"---------------------------------------START----------------------------"
 					#print line,"\n
-					if(eq < 500):
+					if(lt >= 250 && lt < 375):
 						line = re.sub('==','!=',line)
 					#print "---------------------------------------END------------------------------"
 					#print line,"\n"
-	
+					print "= fuzzed"
+
 			if(re.match('(.*)if(.*)',line) is not None or re.match('(.*)while(.*)',line) is not None):
 				#print (line,": ---------------------------------------------------inside if if")
 				if(re.match('(.*)!=(.*)',line) is not None):
 					#print"---------------------------------------START----------------------------"
 					#print line,"\n"
-					if(neq > 500):
+					if(lt >= 375 && lt < 500):
 						line = re.sub('!=','==',line)
 					#print "---------------------------------------END------------------------------"
 					#print line,"\n"
-	
+					print "!= fuzzed"
+
 			if(re.match('(.*)0(.*)',line) is not None):
 				#print"---------------------------------------START----------------------------"
 				#print line,"\n"
-				if(zero < 500):
+				if(lt >= 500 && lt < 625):
 					line = re.sub('0','1',line)
 				#print "---------------------------------------END------------------------------"
 				#print line,"\n"
+				print "0 fuzzed"
 	
 			if(re.match('(.*)1(.*)',line) is not None):
 				#print"---------------------------------------START----------------------------"
 				#print line,"\n"
-				if(one > 500):
+				if(lt >= 625 && lt < 750):
 					line = re.sub('1','0',line)
 				#print "---------------------------------------END------------------------------"
 				#print line,"\n"                      
-	                        
+				print "1 fuzzed"
+ 	                        
 			if(re.match('.*\"(.*)\".*',line) is not None):
 				#print"---------------------------------------START----------------------------"
 				#print line,"\n"
-				if(chgStr > 500):
+				if(lt >= 750 && lt <= 1001):
 					match = re.search(".*(\".*\").*",line)
 					line = line.replace(match.group(1),"\"shit\"")
 				#print "---------------------------------------END------------------------------"
 				#print line,"\n"                      
+				print "string fuzzed"
+
 	
 		fout = open(file_name,'w')
 		for l in lines:

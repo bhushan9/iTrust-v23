@@ -16,7 +16,7 @@ def fuzzing():
         dir_name = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
         print dir_name 
 	for root, dirnames, filenames in os.walk(dir_name):
-		for filename in fnmatch.filter(filenames, '*.js'):
+		for filename in fnmatch.filter(filenames, '*.java'):
 			print filename
 			files.append(os.path.join(root, filename))
 	for file_name in files:
@@ -54,7 +54,7 @@ def fuzzing():
 				if(re.match('(.*)>(.*)',line) is not None):
 					#print"---------------------------------------START----------------------------"
 					#print line,"\n"
-					if(lt >= 125 && lt < 250):
+					if(lt >= 125 and lt < 250):
 						line = re.sub('>','<',line)
 					#print "---------------------------------------END------------------------------
 					#print line,"\n"                        
@@ -65,7 +65,7 @@ def fuzzing():
 				if(re.match('(.*)==(.*)',line) is not None):
 					#print"---------------------------------------START----------------------------"
 					#print line,"\n
-					if(lt >= 250 && lt < 375):
+					if(lt >= 250 and lt < 375):
 						line = re.sub('==','!=',line)
 					#print "---------------------------------------END------------------------------"
 					#print line,"\n"
@@ -76,7 +76,7 @@ def fuzzing():
 				if(re.match('(.*)!=(.*)',line) is not None):
 					#print"---------------------------------------START----------------------------"
 					#print line,"\n"
-					if(lt >= 375 && lt < 500):
+					if(lt >= 375 and lt < 500):
 						line = re.sub('!=','==',line)
 					#print "---------------------------------------END------------------------------"
 					#print line,"\n"
@@ -85,7 +85,7 @@ def fuzzing():
 			if(re.match('(.*)0(.*)',line) is not None):
 				#print"---------------------------------------START----------------------------"
 				#print line,"\n"
-				if(lt >= 500 && lt < 625):
+				if(lt >= 500 and lt < 625):
 					line = re.sub('0','1',line)
 				#print "---------------------------------------END------------------------------"
 				#print line,"\n"
@@ -94,7 +94,7 @@ def fuzzing():
 			if(re.match('(.*)1(.*)',line) is not None):
 				#print"---------------------------------------START----------------------------"
 				#print line,"\n"
-				if(lt >= 625 && lt < 750):
+				if(lt >= 625 and lt < 750):
 					line = re.sub('1','0',line)
 				#print "---------------------------------------END------------------------------"
 				#print line,"\n"                      
@@ -103,7 +103,7 @@ def fuzzing():
 			if(re.match('.*\"(.*)\".*',line) is not None):
 				#print"---------------------------------------START----------------------------"
 				#print line,"\n"
-				if(lt >= 750 && lt <= 1001):
+				if(lt >= 750 and lt <= 1001):
 					match = re.search(".*(\".*\").*",line)
 					line = line.replace(match.group(1),"\"shit\"")
 				#print "---------------------------------------END------------------------------"
@@ -141,8 +141,8 @@ def main():
 	for i in range(1):
 		os.system('git branch fuzzer && git checkout fuzzer')
 		fuzzing()
-		gitcommit(i)
-		revertcommit(i,sha1)
+		#gitcommit(i)
+		#revertcommit(i,sha1)
 
 
 if __name__ == "__main__":
